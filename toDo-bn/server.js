@@ -2,29 +2,37 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-const toDoList=[]
+const toDoList = []
 
 app.use(cors());
 app.use(express.json());
 
 app.post("/texts", (req, res) => {
-   
+
     const obj = req.body;
 
     toDoList.push(obj);
-    res.json({ message: "Text added", obj});
-  });
+    res.json({ message: "Text added", obj });
+});
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
 
 app.get("/texts", (req, res) => {
-    console.log(toDoList)
-    res.send(toDoList);
-  });
 
-  app.patch("/texts/:id", (req, res) => {
+
+    if (req.headers.authorization) {
+        console.log(toDoList)
+        res.send(toDoList);
+    }
+    else {
+        res.status(401).json({ error: "Unauthorized" });
+    }
+
+});
+
+app.patch("/texts/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const index = toDoList.findIndex((item) => item.id === id);
 
@@ -49,4 +57,3 @@ app.delete("/texts/:id", (req, res) => {
 });
 
 
-  
