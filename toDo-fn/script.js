@@ -1,5 +1,4 @@
 // to do {text, isCompleted, i}
-
 const ul = document.getElementById("ul")
 const dispBtn = document.getElementById("display")
 const url = "http://localhost:3000";
@@ -62,6 +61,7 @@ const handleDelete = async (element,li, check) => {
 
 
 async function display() {
+    ul.innerHTML = ""
     const response = await fetch(`${url}/texts`, {
         method: "GET",
         headers: {
