@@ -3,11 +3,11 @@ const ul = document.getElementById("ul")
 const dispBtn = document.getElementById("display")
 const url = "http://localhost:3000";
 
-let txt = document.getElementById("txt")
+const txt = document.getElementById("txt")
 
-let btn = document.getElementById("btn");
+const btn = document.getElementById("btn");
 
-let i=1;
+
 
 
 async function createTxt() {
@@ -18,7 +18,7 @@ async function createTxt() {
             "Content-Type": "application/json",
             "Autorization": "token123"
         },
-        body: JSON.stringify({ txt: value, id: i++, isCompleted: false }),
+        body: JSON.stringify({ txt: value, id, isCompleted: false }),
     });
     const data = await response.json();
     console.log(data);
@@ -46,22 +46,16 @@ const handleChange = async (element, check) => {
 
 
 
-const handleDelete = async (element,li, check) => {
+const handleDelete = async (element) => {
     const response = await fetch(`${url}/texts/${element.id}`, {
         method: "DELETE",
     });
     const data = await response.json();
     console.log(data)
-    li.remove()
-    check.remove()
+    display()
 }
 
-
-
-
-
-async function display() {
-    ul.innerHTML = ""
+async function fetch(){
     const response = await fetch(`${url}/texts`, {
         method: "GET",
         headers: {
@@ -70,6 +64,14 @@ async function display() {
         }
     });
     const data = await response.json();
+    return data
+}
+
+
+
+function display() {
+    ul.innerHTML = ""
+const data= fetch()
     data.forEach(element => {
         let li = document.createElement("li")
         li.innerHTML = element.txt
@@ -86,6 +88,6 @@ async function display() {
 }
 
 
-dispBtn.addEventListener("click", display)
+document.addEventListener("DOMContentLoaded", display)
 
 

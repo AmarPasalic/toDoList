@@ -8,9 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/texts", (req, res) => {
-
     const obj = req.body;
-
+    obj.id = Date.now()
     toDoList.push(obj);
     res.json({ message: "Text added", obj });
 });
