@@ -31,8 +31,8 @@ async function createTxt() {
 btn.addEventListener("click", createTxt)
 
 
-const handleChange = async (element, check) => {
-    const response = await fetch(`${url}/texts/${element.id}`, {
+const handleChange = async (id, check) => {
+    const response = await fetch(`${url}/texts/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -46,8 +46,8 @@ const handleChange = async (element, check) => {
 
 
 
-const handleDelete = async (element) => {
-    const response = await fetch(`${url}/texts/${element.id}`, {
+const handleDelete = async (id) => {
+    const response = await fetch(`${url}/texts/${id}`, {
         method: "DELETE",
     });
     const data = await response.json();
@@ -55,7 +55,7 @@ const handleDelete = async (element) => {
     display()
 }
 
-async function fetch(){
+async function fetch() {
     const response = await fetch(`${url}/texts`, {
         method: "GET",
         headers: {
@@ -71,7 +71,7 @@ async function fetch(){
 
 function display() {
     ul.innerHTML = ""
-const data= fetch()
+    const data = fetch()
     data.forEach(element => {
         let li = document.createElement("li")
         li.innerHTML = element.txt
@@ -81,8 +81,8 @@ const data= fetch()
         ul.appendChild(li)
         ul.appendChild(check)
 
-        check.addEventListener("change", ()=> handleChange(element, check))
-        li.addEventListener("click",()=> handleDelete(element,li, check))
+        check.addEventListener("change", () => handleChange(element.id, check))
+        li.addEventListener("click", () => handleDelete(element.id, li, check))
 
     });
 }
