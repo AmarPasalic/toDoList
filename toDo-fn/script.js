@@ -1,4 +1,4 @@
-// to do {text, isCompleted, i}
+
 const ul = document.getElementById("ul")
 const dispBtn = document.getElementById("display")
 const url = "http://localhost:3000";
@@ -21,7 +21,7 @@ async function createTxt() {
         body: JSON.stringify({ txt: value, id, isCompleted: false }),
     });
     const data = await response.json();
-    console.log(data);
+
     txt.value = "";
     display();
 }
@@ -41,7 +41,7 @@ const handleChange = async (id, check) => {
     });
 
     const data = await response.json();
-    console.log(data);
+
 }
 
 
@@ -51,7 +51,7 @@ const handleDelete = async (id) => {
         method: "DELETE",
     });
     const data = await response.json();
-    console.log(data)
+
     display()
 }
 
