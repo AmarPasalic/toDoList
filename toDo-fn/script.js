@@ -10,7 +10,7 @@ const btn = document.getElementById("btn");
 
 
 
-async function createTxt() {
+async function createToDo() {
     const value = txt.value;
     const response = await fetch(`${url}/texts`, {
         method: "POST",
@@ -28,7 +28,7 @@ async function createTxt() {
 
 
 
-btn.addEventListener("click", createTxt)
+btn.addEventListener("click", createToDo)
 
 
 const handleChange = async (id, check) => {
@@ -55,7 +55,7 @@ const handleDelete = async (id) => {
     display()
 }
 
-async function fetch() {
+async function fetchToDos() {
     const response = await fetch(`${url}/texts`, {
         method: "GET",
         headers: {
@@ -69,9 +69,9 @@ async function fetch() {
 
 
 
-function display() {
+function displayToDos() {
     ul.innerHTML = ""
-    const data = fetch()
+    const data = fetchToDos()
     data.forEach(element => {
         let li = document.createElement("li")
         li.innerHTML = element.txt
@@ -88,6 +88,6 @@ function display() {
 }
 
 
-document.addEventListener("DOMContentLoaded", display)
+document.addEventListener("DOMContentLoaded", displayToDos)
 
 

@@ -8,15 +8,12 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/texts", (req, res) => {
-    const obj = req.body;
-    obj.id = Date.now()
-    toDoList.push(obj);
+   req.body.id=Date.now()
+    toDoList.push(req.body);
     res.json({ message: "Text added", obj });
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+
 
 app.get("/texts", (req, res) => {
 
@@ -56,3 +53,6 @@ app.delete("/texts/:id", (req, res) => {
 });
 
 
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
